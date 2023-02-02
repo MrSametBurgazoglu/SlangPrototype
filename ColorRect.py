@@ -2,7 +2,8 @@ from BaseWidget import BaseWidget
 
 
 class ColorRectWidget(BaseWidget):
-    def __int__(self):
+    def __init__(self):
+        super().__init__()
         self.color = None
 
     def set_color(self, color):
