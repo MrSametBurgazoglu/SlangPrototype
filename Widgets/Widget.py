@@ -1,7 +1,7 @@
-from BaseWidget import BaseWidget
+from Widgets.BaseWidget import BaseWidget
 
 
-class MainWidget(BaseWidget):
+class Widget(BaseWidget):
     def __int__(self):
         pass
 

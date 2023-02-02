@@ -1,15 +1,18 @@
-func button_clicked(){
+func button_clicked():
     print("button clicked")
-}
 
-component Button(button_text){
-    Widget:MouseButtonInput
-    .connect("button_clicked", button_clicked)
+
+component Button:
+    Button(text):
+        change_text("text_widget", text)
     {
-        TextWidget:
-        .set_text(button_text)
+        Widget:MouseButtonInput
+        .connect("button_clicked", button_clicked)
+        {
+            TextWidget:
+            .set_name("text_widget")
+        }
     }
-}
 
 MainWidget:
 .set_width("500px")

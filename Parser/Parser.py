@@ -1,10 +1,10 @@
-from MainWidget import MainWidget
-from Widget import Widget
-from Box import BoxWidget
-from ColorRect import ColorRectWidget
-from TextWidget import TextWidget
-from Function import Function
-from Component import Component
+from Widgets.MainWidget import MainWidget
+from Widgets.Widget import Widget
+from Widgets.Box import BoxWidget
+from Widgets.ColorRect import ColorRectWidget
+from Widgets.TextWidget import TextWidget
+from Functions.Function import Function
+from Components.Component import Component
 
 elements = {
     "MainWidget": MainWidget,
@@ -26,27 +26,60 @@ class Parser(object):
         self.components = {}
         self.current_element = None
 
+
+    def create_element(self, line):
+        if line.startswith("func"):
+            self.create_function(line)
+        elif line.startswith("component"):
+            self.create_component(line)
+        else:
+            self.create_widget(line)
+
+    def parse_inside_widget(self, line):
+        if line.startswith("./"):
+            print("inline function from extend")
+        elif line.startswith("."):
+            print("inline function")
+        elif line.startswith("}"):
+            print("end of current widget")
+        else:
+            print("new widget")
+
+    def parse_inside_function(self, line):
+        if line.startswith("var"):
+            print("create variable")  # will implement later
+        elif line.startswith("}"):  # exit from current function
+            self.current_element = None
+        else:
+            self.parse_function_line(line)
+
+    def parse_inside_component(self, line):
+        if line.startswith("{"):
+            print("component context start")
+        elif line.startswith("}"):
+            print("component context end")
+        elif line.startswith(self.current_element.component_name):
+            print("constructor")
+            constructor_func = Function()
+            function_name_start_index = line.index(" ") + 1
+            function_name_end_index = line.index("(", function_name_start_index)
+            function_name = line[function_name_start_index: function_name_start_index + function_name_end_index]
+            self.current_element.component_functions.append(constructor_func)
+            self.current_element = constructor_func
+        else:
+            print("create component widget")
+
     def parse_line(self):
         line = self.file.readline()
-        if len(line) > 0:
+        if len(line) > 0 and not line.isspace():
             if self.current_element is None:
-                if line.startswith("func"):
-                    self.create_function(line)
-                elif line.startswith("component"):
-                    print("component beginning")
-                else:
-                    self.create_widget(line)
+                self.create_element(line)
             elif isinstance(self.current_element, (Widget, MainWidget, BoxWidget, ColorRectWidget, TextWidget)):
-                if line.startswith("./"):
-                    print("inline function from extend")
-                elif line.startswith("."):
-                    print("inline function")
-                else:
-                    print("new widget")
+                self.parse_inside_widget(line)
             elif isinstance(self.current_element, Function):
-                self.parse_function_line(line)
+                self.parse_inside_function(line)
             elif isinstance(self.current_element, Component):
-                print("component line")
+                self.parse_inside_component(line)
         else:
             print("end current statement")
         return line
@@ -87,6 +120,8 @@ class Parser(object):
         new_func = Function()
         function_name_start_index = line.index(" ")+1
         function_name_end_index = line.index("(", function_name_start_index)
+        function_parameter_end = line.index(")", function_name_end_index)
+        function_parameters = line[function_name_end_index:function_name_end_index + function_parameter_end]
         function_name = line[function_name_start_index: function_name_start_index+function_name_end_index]
         self.functions[function_name] = new_func
         self.current_element = new_func
@@ -98,8 +133,13 @@ class Parser(object):
         function_parameters = line[function_parameter_start:function_parameter_start + function_parameter_end]
         self.current_element.add_function_line(function_name, function_parameters)
 
-    def parse_component(self):
-        pass
+    def create_component(self, line):
+        new_component = Component()
+        component_name_start_index = line.index(" ") + 1
+        component_name_end_index = line.index("(", component_name_start_index)
+        component_name = line[component_name_start_index: component_name_start_index + component_name_end_index]
+        self.components[component_name] = new_component
+        self.current_element = new_component
 
     def create_widget(self, line: str):
         element_name = line[:line.index(':')]
