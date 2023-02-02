@@ -1,16 +1,24 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+from Parser import Parser
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+class Main(object):
+    filepath = None
+
+    def __init__(self, filepath):
+        self.filepath = filepath
+        self.parser = None
+        self.main_widget = None
+        self.functions = None
+        self.components = None
+
+    def parse_file(self):
+        self.parser = Parser(self.filepath)
+        line = self.parser.parse_line()
+        while line:
+            print(line)
+            line = self.parser.parse_line()
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+if __name__ == "__main__":
+    program = Main("example.slang")
+    program.parse_file()
