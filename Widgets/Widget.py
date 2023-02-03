@@ -2,8 +2,8 @@ from Widgets.BaseWidget import BaseWidget
 
 
 class Widget(BaseWidget):
-    def __int__(self):
-        pass
+    def __init__(self):
+        super().__init__()
 
     def render(self):
         for x in self.children:

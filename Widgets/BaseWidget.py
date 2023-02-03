@@ -1,5 +1,6 @@
 class BaseWidget(object):
     def __init__(self):
+        self.extend_classes = {}
         self.pos_x = 0
         self.pos_y = 0
         self.width = 0

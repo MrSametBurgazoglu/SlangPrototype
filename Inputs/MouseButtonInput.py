@@ -1,5 +1,5 @@
 class MouseButtonInput(object):
-    def __int__(self):
+    def __init__(self):
         self.parent = None
         self.connections = {}
 

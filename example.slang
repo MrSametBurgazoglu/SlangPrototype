@@ -1,13 +1,14 @@
 func button_clicked():
     print("button clicked")
 
-
 component Button:
     Button(text):
-        change_text("text_widget", text)
+        change_property("text_widget", "text", text)
     {
         Widget:MouseButtonInput
-        .connect("button_clicked", button_clicked)
+        ./MouseButtonInput.connect("button_clicked", button_clicked)
+        .set_width("50px")
+        .set_height("50px")
         {
             TextWidget:
             .set_name("text_widget")

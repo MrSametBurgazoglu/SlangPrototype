@@ -2,7 +2,7 @@ from .BaseWidget import BaseWidget
 
 
 class MainWidget(BaseWidget):
-    def __int__(self):
+    def __init__(self):
         pass
 
     def render(self):
