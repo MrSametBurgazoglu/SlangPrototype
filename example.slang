@@ -6,7 +6,7 @@ component Button:
         change_property("text_widget", "text", text)
     {
         Widget:MouseButtonInput
-        ./MouseButtonInput.connect("button_clicked", button_clicked)
+        ./MouseButtonInput.connect("button_clicked", $button_clicked)
         .set_width("50px")
         .set_height("50px")
         {
@@ -16,21 +16,21 @@ component Button:
     }
 
 MainWidget:
-.set_width("500px")
-.set_height("400px")
-{
-    Box:MouseButtonInput
-    .set_vertical_align("center")
-    .set_horizontal_align("center")
-    .set_position("50px", "50px")
-    ./MouseButtonInput.connect("button_clicked", button_clicked)
+    .set_width("500px")
+    .set_height("400px")
     {
-        ColorRect:
-        .set_color("gray")
-        .set_width("100%")
-        .set_height("100%")
-        TextWidget:
-        .set_text("First Button")
-    }
+    Box:MouseButtonInput
+        .set_vertical_align("center")
+        .set_horizontal_align("center")
+        .set_position("50px", "50px")
+        ./MouseButtonInput.connect("button_clicked", $button_clicked)
+        {
+            ColorRect:
+            .set_color("gray")
+            .set_width("100%")
+            .set_height("100%")
+            TextWidget:
+            .set_text("First Button")
+        }
     component Button("new button from component"):
-}
+    }

@@ -12,10 +12,10 @@ class BoxWidget(BaseWidget):
     def set_orientation(self, orientation):
         self.orientation = orientation
 
-    def set_halign(self, align):
+    def set_horizontal_align(self, align):
         self.horizontal_align = align
 
-    def set_valign(self, align):
+    def set_vertical_align(self, align):
         self.vertical_align = align
 
     def render(self):

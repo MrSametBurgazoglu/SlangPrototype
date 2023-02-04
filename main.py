@@ -17,8 +17,16 @@ class Main(object):
         while line:
             print(line)
             line = self.parser.parse_line()
+        self.main_widget, self.components, self.functions = self.parser.get_context()
+        print(self.main_widget, self.components, self.functions)
+
+    def render_document(self):
+        pass
 
 
 if __name__ == "__main__":
     program = Main("example.slang")
     program.parse_file()
+    while True:
+        program.render_document()
+        break

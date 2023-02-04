@@ -4,6 +4,7 @@ class Component(object):
         self.component_parameters = []
         self.component_widget = None
         self.component_functions = []
+        self.parent = None
 
     def add_child(self, widget):
         self.component_widget = widget
