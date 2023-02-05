@@ -18,6 +18,12 @@ class BoxWidget(BaseWidget):
     def set_vertical_align(self, align):
         self.vertical_align = align
 
-    def render(self):
+    def render(self, canvas):
+        self.compute_metrics()
         for x in self.children:
-            x.render()
+            x.render(canvas)
+        self.compute_metrics()
+
+    def draw(self, canvas):
+        for x in self.children:
+            x.draw(canvas)

@@ -1,4 +1,5 @@
 from Parser.Parser import Parser
+from Renderer import Renderer
 
 
 class Main(object):
@@ -27,6 +28,5 @@ class Main(object):
 if __name__ == "__main__":
     program = Main("example.slang")
     program.parse_file()
-    while True:
-        program.render_document()
-        break
+    renderer = Renderer.Renderer(program.main_widget)
+    renderer.init_draw_loop()

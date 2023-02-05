@@ -5,6 +5,10 @@ class MainWidget(BaseWidget):
     def __init__(self):
         super().__init__()
 
-    def render(self):
+    def render(self, canvas):
         for x in self.children:
-            x.render()
+            x.render(canvas)
+
+    def draw(self, canvas):
+        for x in self.children:
+            x.draw(canvas)
