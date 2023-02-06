@@ -2,6 +2,10 @@ from .BaseWidget import BaseWidget
 
 
 class MainWidget(BaseWidget):
+    """
+    MainWidget must be the first widget in widget tree.
+    Its directly draw to screen.
+    """
     def __init__(self):
         super().__init__()
 

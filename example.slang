@@ -30,6 +30,7 @@ MainWidget:
             .set_horizontal_align("center")
             .set_width("max-content")
             .set_height("max-content")
+            .set_orientation("vertical")
             ./MouseButtonInput.connect("button_clicked", $button_clicked)
             {
                 TextWidget:

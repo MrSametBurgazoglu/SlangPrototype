@@ -4,6 +4,11 @@ from .BaseWidget import BaseWidget
 
 
 class ColorRectWidget(BaseWidget):
+    """
+    A ColorRect is widget for drawing a rect with one color.
+    Like other widgets it can have child widgets.
+    :param self.color:
+    """
     def __init__(self):
         super().__init__()
         self.color = None

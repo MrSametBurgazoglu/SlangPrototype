@@ -4,6 +4,9 @@ from .BaseWidget import BaseWidget
 
 
 class TextWidget(BaseWidget):
+    """
+    Text widget for drawing text to screen
+    """
     def __init__(self):
         super().__init__()
         self.text = ""

@@ -2,6 +2,10 @@ from Widgets.BaseWidget import BaseWidget
 
 
 class Widget(BaseWidget):
+    """
+    Widget is the simplest widget.
+    It can have any child widget.
+    """
     def __init__(self):
         super().__init__()
 

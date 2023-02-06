@@ -1,4 +1,9 @@
 class BaseWidget(object):
+    """
+    BaseWidget is subclass for all widgets.
+    A widget can extend some classes (especially input classes).
+    It is a base class, so it cannot be used by user
+    """
     def __init__(self):
         self.extend_classes = {}
         self.name = ""
