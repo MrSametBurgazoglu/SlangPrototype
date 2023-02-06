@@ -36,6 +36,8 @@ MainWidget:
                 TextWidget:
                 .set_text("First Button")
                 .set_color("red")
+                ImageRect:
+                .set_source("example.png")
             }
         }
     component Button("new button from component"):

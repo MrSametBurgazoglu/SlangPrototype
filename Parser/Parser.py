@@ -2,6 +2,7 @@ from Widgets.MainWidget import MainWidget
 from Widgets.Widget import Widget
 from Widgets.Box import BoxWidget
 from Widgets.ColorRect import ColorRectWidget
+from Widgets.ImageRect import ImageRectWidget
 from Widgets.TextWidget import TextWidget
 from Functions.Function import Function
 from Components.Component import Component
@@ -77,7 +78,7 @@ class Parser(object):
         if len(line) > 0 and not line.isspace():
             if self.parent_element is None:
                 self.create_element(line)
-            elif isinstance(self.current_element, (Widget, MainWidget, BoxWidget, ColorRectWidget, TextWidget)):
+            elif isinstance(self.current_element, (Widget, MainWidget, BoxWidget, ColorRectWidget, TextWidget, ImageRectWidget)):
                 self.parse_inside_widget(line)
             elif isinstance(self.current_element, Function):
                 self.parse_inside_function(line)

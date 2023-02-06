@@ -14,16 +14,23 @@ class ImageRectWidget(BaseWidget):
         self.source = None
         self.image = None
         self.paint = skia.Paint()
-        self.rect = skia.Rect()
 
     def set_source(self, path):
+        print("wowwww")
         self.source = path
+        self.image = skia.Image.open(self.source)
+        print("path")
 
     def compute_size(self):
         self.compute_size_self()
         for x in self.children:
             x.compute_size()
         self.compute_size_self()
+        image_size = self.image.dimensions()
+        self.computed_width = image_size.width()
+        self.computed_height = image_size.height()
+        print(self.computed_width, self.computed_height)
+        print("heyyo")
 
     def compute_position(self, parent_position):
         self.computed_pos_x = parent_position[0]
@@ -33,8 +40,6 @@ class ImageRectWidget(BaseWidget):
             x.compute_position([self.computed_pos_x, self.computed_pos_y])
 
     def draw(self, canvas):
-        self.image = skia.Image.open(self.source)
-        self.rect.setXYWH(self.computed_pos_x, self.computed_pos_y, self.computed_width, self.computed_height)
         canvas.drawImage(self.image, 0, 0, self.paint)
         for x in self.children:
             x.draw(canvas)
