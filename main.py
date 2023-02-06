@@ -16,10 +16,9 @@ class Main(object):
         self.parser = Parser(self.filepath)
         line = self.parser.parse_line()
         while line:
-            print(line)
+            print(line, end="")
             line = self.parser.parse_line()
         self.main_widget, self.components, self.functions = self.parser.get_context()
-        print(self.main_widget, self.components, self.functions)
 
     def render_document(self):
         pass

@@ -16,10 +16,6 @@ class BaseWidget(object):
     def set_position(self, x, y):
         self.pos_x = x
         self.pos_y = y
-        if self.pos_x.endswith("px"):
-            self.computed_pos_x = int(self.pos_x[:-2])
-        if self.pos_y.endswith("px"):
-            self.computed_pos_y = int(self.pos_y[:-2])
 
     def set_width(self, width: str):
         self.width = width
@@ -49,7 +45,13 @@ class BaseWidget(object):
                 new_height += x.computed_height
             self.computed_height = new_height
 
-    def compute_metrics(self):
+    def compute_position_self(self):
+        if self.pos_x.endswith("px"):
+            self.computed_pos_x += int(self.pos_x[:-2])
+        if self.pos_y.endswith("px"):
+            self.computed_pos_y += int(self.pos_y[:-2])
+
+    def compute_size_self(self):
         self.compute_height()
         self.compute_width()
 

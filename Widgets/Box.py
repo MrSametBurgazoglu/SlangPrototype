@@ -8,6 +8,7 @@ class BoxWidget(BaseWidget):
         self.horizontal_align = None
         self.vertical_align = None
         self.spacing = None
+        self.reverse = False
 
     def set_orientation(self, orientation):
         self.orientation = orientation
@@ -18,11 +19,28 @@ class BoxWidget(BaseWidget):
     def set_vertical_align(self, align):
         self.vertical_align = align
 
-    def render(self, canvas):
-        self.compute_metrics()
+    def compute_size(self):
+        self.compute_size_self()
         for x in self.children:
-            x.render(canvas)
-        self.compute_metrics()
+            x.compute_size()
+        self.compute_size_self()
+
+    def compute_position(self, parent_position):
+        self.computed_pos_x = parent_position[0]
+        self.computed_pos_y = parent_position[1]
+        self.compute_position_self()
+        if self.orientation == "vertical":
+            if not self.reverse:
+                current_pos = self.computed_pos_y
+                for x in self.children:
+                    x.compute_position([self.computed_pos_x, current_pos])
+                    current_pos += x.computed_height
+        else:
+            if not self.reverse:
+                current_pos = self.computed_pos_x
+                for x in self.children:
+                    x.compute_position([current_pos, self.computed_pos_y])
+                    current_pos += x.computed_width
 
     def draw(self, canvas):
         for x in self.children:

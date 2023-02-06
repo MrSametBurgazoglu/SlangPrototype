@@ -21,13 +21,13 @@ MainWidget:
     {
     ColorRect:
         .set_color("gray")
+        .set_position("50px", "50px")
         .set_width("max-content")
         .set_height("max-content")
         {
         Box:MouseButtonInput
             .set_vertical_align("center")
             .set_horizontal_align("center")
-            .set_position("50px", "50px")
             .set_width("max-content")
             .set_height("max-content")
             ./MouseButtonInput.connect("button_clicked", $button_clicked)

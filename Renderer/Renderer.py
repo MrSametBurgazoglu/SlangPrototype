@@ -35,7 +35,8 @@ class Renderer(object):
         GL.glClearColor(1, 1, 1, 1)
         GL.glClear(GL.GL_COLOR_BUFFER_BIT)
         with self.surface as canvas:
-            self.main_widget.render(canvas)
+            self.main_widget.compute_size()
+            self.main_widget.compute_position()
             self.main_widget.draw(canvas)
         self.surface.flushAndSubmit()
         glfw.swap_buffers(self.window)

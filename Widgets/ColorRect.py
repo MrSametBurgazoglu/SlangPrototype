@@ -16,15 +16,21 @@ class ColorRectWidget(BaseWidget):
             self.paint.setColor(skia.ColorGRAY)
         self.color = color
 
-    def render(self, canvas):
-        self.compute_metrics()
+    def compute_size(self):
+        self.compute_size_self()
         for x in self.children:
-            x.render(canvas)
-        self.compute_metrics()
-        self.rect.setXYWH(self.computed_pos_x, self.computed_pos_y, self.computed_width, self.computed_height)
-        print(self.computed_pos_x, self.computed_pos_y, self.computed_width, self.computed_height, self.color, "wow")
+            x.compute_size()
+        self.compute_size_self()
+
+    def compute_position(self, parent_position):
+        self.computed_pos_x = parent_position[0]
+        self.computed_pos_y = parent_position[1]
+        self.compute_position_self()
+        for x in self.children:
+            x.compute_position([self.computed_pos_x, self.computed_pos_y])
 
     def draw(self, canvas):
+        self.rect.setXYWH(self.computed_pos_x, self.computed_pos_y, self.computed_width, self.computed_height)
         canvas.drawRect(self.rect, self.paint)
         for x in self.children:
             x.draw(canvas)

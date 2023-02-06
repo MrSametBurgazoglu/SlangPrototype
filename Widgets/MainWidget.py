@@ -5,9 +5,13 @@ class MainWidget(BaseWidget):
     def __init__(self):
         super().__init__()
 
-    def render(self, canvas):
+    def compute_size(self):
         for x in self.children:
-            x.render(canvas)
+            x.compute_size()
+
+    def compute_position(self):
+        for x in self.children:
+            x.compute_position([self.computed_pos_x, self.computed_pos_y])
 
     def draw(self, canvas):
         for x in self.children:
