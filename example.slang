@@ -23,13 +23,13 @@ MainWidget:
         .set_color("gray")
         .set_position("50px", "50px")
         .set_width("max-content")
-        .set_height("max-content")
+        .set_height("80%")
         {
         Box:MouseButtonInput
             .set_vertical_align("center")
             .set_horizontal_align("center")
             .set_width("max-content")
-            .set_height("max-content")
+            .set_height("100%")
             .set_orientation("vertical")
             ./MouseButtonInput.connect("button_clicked", $button_clicked)
             {
@@ -40,5 +40,4 @@ MainWidget:
                 .set_source("example.png")
             }
         }
-    component Button("new button from component"):
     }

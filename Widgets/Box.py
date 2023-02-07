@@ -31,6 +31,17 @@ class BoxWidget(BaseWidget):
         for x in self.children:
             x.compute_size()
         self.compute_size_self()
+        if self.orientation == "vertical":
+            maximum_width = 0
+            for x in self.children:
+                maximum_width = max(maximum_width, x.computed_width)
+            self.computed_width = maximum_width
+        else:
+            maximum_height = 0
+            for x in self.children:
+                maximum_height = max(maximum_height, x.computed_height)
+            self.computed_height = maximum_height
+
 
     def compute_child_positions_x_vertical_orientation(self):
         child_x_list = []
