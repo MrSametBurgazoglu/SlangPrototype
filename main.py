@@ -11,6 +11,7 @@ class Main(object):
         self.main_widget = None
         self.functions = None
         self.components = None
+        self.renderer = None
 
     def parse_file(self):
         self.parser = Parser(self.filepath)
@@ -21,11 +22,15 @@ class Main(object):
         self.main_widget, self.components, self.functions = self.parser.get_context()
 
     def render_document(self):
-        pass
+        self.renderer = Renderer.Renderer(self.main_widget)
+
+    def init(self):
+        self.renderer.start_loop()
 
 
 if __name__ == "__main__":
     program = Main("example.slang")
     program.parse_file()
-    renderer = Renderer.Renderer(program.main_widget)
-    renderer.init_draw_loop()
+    program.render_document()
+    program.init()
+
