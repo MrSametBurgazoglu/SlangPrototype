@@ -1,4 +1,4 @@
-class MouseButtonInput(object):
+class KeyboardInput(object):
     def __init__(self):
         self.parent = None
         self.connections = {}

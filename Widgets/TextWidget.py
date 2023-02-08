@@ -20,6 +20,8 @@ class TextWidget(BaseWidget):
     def set_color(self, color):
         if color == "red":
             self.paint.setColor(skia.ColorRED)
+        elif color == "white":
+            self.paint.setColor(skia.ColorWHITE)
 
     def compute_size(self):
         text_width = self.font.measureText(self.text)
@@ -29,8 +31,7 @@ class TextWidget(BaseWidget):
     def compute_position(self, parent_position):
         self.computed_pos_x = parent_position[0]
         self.computed_pos_y = parent_position[1]
-        self.compute_position_self()
-        print(self.computed_pos_x, self.computed_pos_y, "computed pos for text")
+        super().compute_position(parent_position)
         for x in self.children:
             x.compute_position([self.computed_pos_x, self.computed_pos_y])
 

@@ -13,7 +13,8 @@ class MainWidget(BaseWidget):
         for x in self.children:
             x.compute_size()
 
-    def compute_position(self):
+    def compute_position(self, start_position):
+        super().compute_position(start_position)
         for x in self.children:
             x.compute_position([self.computed_pos_x, self.computed_pos_y])
 

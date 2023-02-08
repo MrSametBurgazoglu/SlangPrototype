@@ -30,34 +30,41 @@ class Renderer(object):
             self.context, backend_render_target, skia.kBottomLeft_GrSurfaceOrigin,
             skia.kRGBA_8888_ColorType, skia.ColorSpace.MakeSRGB())
 
-    def get_widget_on_mouse(self, x_pos, y_pos):
-        current_widget = self.main_widget
-        while True:
-            if len(current_widget.children) == 0:
-                break
+    def get_widget_on_mouse(self, widget, x_pos, y_pos):
+        current_widget = widget
+        while len(current_widget.children) > 0:
             for x in current_widget.children:
-                if utils.in_rect(x_pos, y_pos, x.computed_pos_x, x.computed_pos_y, x.computed_width, x.computed_height):
+                if x.is_inside(x_pos, y_pos):
                     current_widget = x
                     break
             else:
-                break
-        self.widget_on_mouse = current_widget
+                return current_widget
+        return current_widget
 
 
     def cursor_pos_changed(self, window, x_pos, y_pos):
-        if self.widget_on_mouse and len(self.widget_on_mouse.children) == 0:
-            if not utils.in_rect(x_pos, y_pos,
-                                 self.widget_on_mouse.computed_pos_x, self.widget_on_mouse.computed_pos_y,
-                                 self.widget_on_mouse.computed_width, self.widget_on_mouse.computed_height):
-                self.get_widget_on_mouse(x_pos, y_pos)
-                print(self.widget_on_mouse)
+        last_widget = self.widget_on_mouse
+        if self.widget_on_mouse is None:
+            self.widget_on_mouse = self.get_widget_on_mouse(self.main_widget, x_pos, y_pos)
         else:
-            last_widget_on_mouse = self.widget_on_mouse
-            self.get_widget_on_mouse(x_pos, y_pos)
-            if last_widget_on_mouse != self.widget_on_mouse:
-                print(self.widget_on_mouse)
+            if len(self.widget_on_mouse.children) == 0:
+                if not self.widget_on_mouse.is_inside(x_pos, y_pos):
+                    if self.widget_on_mouse.parent.is_inside(x_pos, y_pos):
+                        self.widget_on_mouse = self.get_widget_on_mouse(self.widget_on_mouse.parent, x_pos, y_pos)
+                    else:
+                        self.widget_on_mouse = self.get_widget_on_mouse(self.main_widget, x_pos, y_pos)
+            else:
+                if self.widget_on_mouse.is_inside(x_pos, y_pos):
+                    self.widget_on_mouse = self.get_widget_on_mouse(self.widget_on_mouse, x_pos, y_pos)
+                else:
+                    self.widget_on_mouse = self.get_widget_on_mouse(self.main_widget, x_pos, y_pos)
+        if last_widget != self.widget_on_mouse:
+            #print(self.widget_on_mouse)
+            pass
 
     def mouse_button_clicked(self, window, button, action, mods):
+        if action != glfw.PRESS:
+            return
         current_widget = self.widget_on_mouse  # widget in mouse position
         while "MouseButtonInput" not in current_widget.extend_classes:
             current_widget = current_widget.parent  # find widget has connection to mouse input
@@ -66,6 +73,7 @@ class Renderer(object):
         if "button_clicked" in current_widget.extend_classes["MouseButtonInput"].connections:
             function_to_execute = current_widget.extend_classes["MouseButtonInput"].connections["button_clicked"]
             print(function_to_execute)
+            print(current_widget)
 
     def char_input(self, window, character):
         print("character", character)
@@ -77,9 +85,10 @@ class Renderer(object):
     def start_loop(self):
         GL.glClearColor(1, 1, 1, 1)
         GL.glClear(GL.GL_COLOR_BUFFER_BIT)
+        start_position = [0, 0]
         with self.surface as canvas:
             self.main_widget.compute_size()
-            self.main_widget.compute_position()
+            self.main_widget.compute_position(start_position)
             self.main_widget.draw(canvas)
         self.surface.flushAndSubmit()
         glfw.set_cursor_pos_callback(self.window, self.cursor_pos_changed)

@@ -6,6 +6,7 @@ from Widgets.ImageRect import ImageRectWidget
 from Widgets.TextWidget import TextWidget
 
 from Inputs.MouseButtonInput import MouseButtonInput
+from Inputs.KeyboardInput import KeyboardInput
 
 elements = {
     "MainWidget": MainWidget,
@@ -17,6 +18,7 @@ elements = {
 }
 
 extend_classes = {
-    "MouseButtonInput": MouseButtonInput
+    "MouseButtonInput": MouseButtonInput,
+    "KeyboardInput": KeyboardInput,
 }
 

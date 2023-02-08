@@ -17,7 +17,7 @@ class Main(object):
         self.parser = Parser(self.filepath)
         line = self.parser.parse_line()
         while line:
-            print(line, end="")
+            #print(line, end="")
             line = self.parser.parse_line()
         self.main_widget, self.components, self.functions = self.parser.get_context()
 

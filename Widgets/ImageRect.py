@@ -31,7 +31,7 @@ class ImageRectWidget(BaseWidget):
     def compute_position(self, parent_position):
         self.computed_pos_x = parent_position[0]
         self.computed_pos_y = parent_position[1]
-        self.compute_position_self()
+        super().compute_position(parent_position)
         for x in self.children:
             x.compute_position([self.computed_pos_x, self.computed_pos_y])
 

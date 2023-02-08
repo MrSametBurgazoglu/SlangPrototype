@@ -17,8 +17,13 @@ class ColorRectWidget(BaseWidget):
 
     def set_color(self, color):
         if color == "gray":
-            self.color = "gray"
             self.paint.setColor(skia.ColorGRAY)
+        elif color == "white":
+            self.paint.setColor(skia.ColorWHITE)
+        elif color == "red":
+            self.paint.setColor(skia.ColorRED)
+        elif color == "blue":
+            self.paint.setColor(skia.ColorBLUE)
         self.color = color
 
     def compute_size(self):
@@ -30,7 +35,7 @@ class ColorRectWidget(BaseWidget):
     def compute_position(self, parent_position):
         self.computed_pos_x = parent_position[0]
         self.computed_pos_y = parent_position[1]
-        self.compute_position_self()
+        super().compute_position(parent_position)
         for x in self.children:
             x.compute_position([self.computed_pos_x, self.computed_pos_y])
 

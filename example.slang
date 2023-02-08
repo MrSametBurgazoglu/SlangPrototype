@@ -21,23 +21,47 @@ MainWidget:
     {
     ColorRect:
         .set_color("gray")
-        .set_position("50px", "50px")
-        .set_width("max-content")
+        .set_position("25%", "50px")
+        .set_width("50%")
         .set_height("80%")
         {
         Box:MouseButtonInput
             .set_vertical_align("center")
             .set_horizontal_align("center")
-            .set_width("max-content")
+            .set_width("100%")
             .set_height("100%")
             .set_orientation("vertical")
+            .set_spacing("20")
             ./MouseButtonInput.connect("button_clicked", $button_clicked)
             {
-                TextWidget:
-                .set_text("First Button")
-                .set_color("red")
-                ImageRect:
+            ImageRect:
                 .set_source("example.png")
+            ColorRect:
+                .set_color("white")
+                .set_width("50%")
+                .set_height("max-content")
+                {
+                Box:
+                    .set_width("100%")
+                    .set_height("max-content")
+                    {
+                    TextWidget:
+                        .set_text("hello")
+                    }
+                }
+            ColorRect:
+                .set_color("blue")
+                .set_width("50%")
+                .set_height("max-content")
+                {
+                Box:
+                    .set_width("100%")
+                    .set_height("max-content")
+                    {
+                    TextWidget:
+                        .set_text("hello")
+                    }
+                }
             }
         }
     }
