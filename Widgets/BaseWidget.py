@@ -39,6 +39,9 @@ class BaseWidget(object):
     def set_height(self, height: str):
         self.height = height
 
+    def set_name(self, name):
+        self.name = name
+
     def set_margin(self, top, bottom, left, right):
         self.margin_top = top
         self.margin_bottom = bottom
@@ -96,9 +99,6 @@ class BaseWidget(object):
     def compute_size_self(self):
         self.compute_height()
         self.compute_width()
-
-    def set_name(self, name):
-        self.name = name
 
     def add_child(self, child):
         self.children.append(child)

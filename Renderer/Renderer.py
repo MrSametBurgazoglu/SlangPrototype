@@ -1,6 +1,5 @@
-import contextlib, glfw, skia
+import glfw, skia
 from OpenGL import GL
-from Renderer import utils
 
 WIDTH, HEIGHT = 640, 480
 
@@ -58,9 +57,6 @@ class Renderer(object):
                     self.widget_on_mouse = self.get_widget_on_mouse(self.widget_on_mouse, x_pos, y_pos)
                 else:
                     self.widget_on_mouse = self.get_widget_on_mouse(self.main_widget, x_pos, y_pos)
-        if last_widget != self.widget_on_mouse:
-            #print(self.widget_on_mouse)
-            pass
 
     def mouse_button_clicked(self, window, button, action, mods):
         if action != glfw.PRESS:
@@ -72,8 +68,7 @@ class Renderer(object):
                 return
         if "button_clicked" in current_widget.extend_classes["MouseButtonInput"].connections:
             function_to_execute = current_widget.extend_classes["MouseButtonInput"].connections["button_clicked"]
-            print(function_to_execute)
-            print(current_widget)
+            function_to_execute.execute_function()
 
     def char_input(self, window, character):
         print("character", character)

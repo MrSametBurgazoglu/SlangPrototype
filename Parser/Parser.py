@@ -141,7 +141,7 @@ class Parser(object):
         self.parent_element = new_func
 
     def parse_function_line(self, line):
-        function_name, function_parameters = FunctionParser.parse_function_line(line)
+        function_name, function_parameters = FunctionParser.parse_function_line(line, self.functions)
         self.current_element.add_function_line(function_name, function_parameters)
 
     def create_component(self, line):

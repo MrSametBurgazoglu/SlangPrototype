@@ -1,5 +1,6 @@
 func button_clicked():
     print("button clicked")
+    change_property("text_widget", "text", "changed text")
 
 component Button:
     Button(text):
@@ -21,18 +22,17 @@ MainWidget:
     {
     ColorRect:
         .set_color("gray")
-        .set_position("25%", "50px")
+        .set_position("25%", "10%")
         .set_width("50%")
         .set_height("80%")
         {
-        Box:MouseButtonInput
+        Box:
             .set_vertical_align("center")
             .set_horizontal_align("center")
             .set_width("100%")
             .set_height("100%")
             .set_orientation("vertical")
             .set_spacing("20")
-            ./MouseButtonInput.connect("button_clicked", $button_clicked)
             {
             ImageRect:
                 .set_source("example.png")
@@ -54,12 +54,14 @@ MainWidget:
                 .set_width("50%")
                 .set_height("max-content")
                 {
-                Box:
+                Box:MouseButtonInput
                     .set_width("100%")
                     .set_height("max-content")
+                    ./MouseButtonInput.connect("button_clicked", $button_clicked)
                     {
                     TextWidget:
                         .set_text("hello")
+                        .set_name("text_widget")
                     }
                 }
             }

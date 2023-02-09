@@ -21,3 +21,21 @@ class MainWidget(BaseWidget):
     def draw(self, canvas):
         for x in self.children:
             x.draw(canvas)
+
+    def change_property(self, widget_name, property_name, value):
+        current_widget_list = [self]
+        new_widget_list = []
+        result = []
+        while len(current_widget_list) > 0:
+            for x in current_widget_list:
+                if x.name == widget_name:
+                    result.append(x)
+                for y in x.children:
+                    new_widget_list.append(y)
+            current_widget_list = new_widget_list
+            new_widget_list = []
+        for x in result:
+            setattr(x, property_name, value)
+            print(getattr(x, property_name))
+        print(result)
+        print(widget_name, property_name, value)

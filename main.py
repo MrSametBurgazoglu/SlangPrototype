@@ -1,6 +1,6 @@
 from Parser.Parser import Parser
 from Renderer import Renderer
-
+from core import root_widget
 
 class Main(object):
     filepath = None
@@ -22,6 +22,7 @@ class Main(object):
         self.main_widget, self.components, self.functions = self.parser.get_context()
 
     def render_document(self):
+        root_widget.root_widget = self.main_widget
         self.renderer = Renderer.Renderer(self.main_widget)
 
     def init(self):

@@ -1,4 +1,6 @@
 from Functions.Function import Function
+
+
 def parse_function_parameters(line: str, functions):
     parameters = []
     current_index = 0
@@ -6,7 +8,7 @@ def parse_function_parameters(line: str, functions):
         if line[current_index] == '"':
             end_str = line.index('"', current_index + 1)
             parameters.append(line[current_index + 1:end_str])
-            current_index += end_str + 1
+            current_index = end_str + 2
         elif line[current_index] == '$':  # global functions or variables
             end_str = line.find(',', current_index)
             variable_name = line[current_index + 1:] if end_str == -1 else line[current_index + 1:end_str]
@@ -24,11 +26,11 @@ def parse_function_parameters(line: str, functions):
     return parameters
 
 
-def parse_function_line(line):
+def parse_function_line(line, functions):
     function_parameter_start = line.index("(")
     function_parameter_end = line.index(")", function_parameter_start)
     function_name = line[:function_parameter_start]
-    function_parameters = line[function_parameter_start+1:function_parameter_end]
+    function_parameters = parse_function_parameters(line[function_parameter_start+1:function_parameter_end], functions)
     return function_name, function_parameters
 
 

@@ -23,3 +23,7 @@ class Function(object):
         new_func_line.function_name = name
         new_func_line.function_parameters = parameters
         self.function_lines.append(new_func_line)
+
+    def execute_function(self):
+        for x in self.function_lines:
+            x.execute_function()
