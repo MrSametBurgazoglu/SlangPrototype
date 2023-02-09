@@ -48,3 +48,14 @@ MainWidget:
         }
     }
 ```
+
+## Build Project
+```
+pip install -r requirements.txt
+```
+
+
+### Run Example
+```
+python3 main.py
+```
